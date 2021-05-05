@@ -1,0 +1,27 @@
+;two digit sepration
+[org 0x100]; string instruciton lodsb, stosb,SCAS--> BLOCK PROCESSING; 
+;MOV [DI],[SI] <--- INVALID
+;MOVSB ; [ES:DI] <------[DS:SI]  ; DI<---DI+1  ; SI<--SI+1
+;;MOVSW ; [ES:DI] <------[DS:SI]  ; DI<---DI+2  ; SI<--SI+2
+;  MESAGE(SOURCE)---->COPY(DESTINATION)
+; MESSAGE---->SI    ; COPY ---->DI
+; CLASS ACTIVITY: THIS CODE COPIES DATA FROM ONE ARRAY TO ANOTHER ARRAY. IT WORKS PERFECTLY WHEN DF IS CLEAR. YOU ARE REQUIRED TO CORRECT THE CODE WHY DIRECTION FLAG IS SET.
+
+	PUSH DS
+	POP ES
+	MOV SI,Message
+	MOV DI, COPY
+	MOV CX,[SIZE]
+	STD ; SET THE DIRECTION FLAG ; DF<---1  ; DECREASING ORDER DI<DI-1  ; SI<--SI-1
+	cld
+	REP MOVSB
+
+
+
+END:	
+mov ax,0x4c00
+int 21h
+Message: DB "Count of Character",0
+SIZE: DW 18
+COPY: DW 0
+

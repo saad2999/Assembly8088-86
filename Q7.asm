@@ -8,7 +8,7 @@ mov dx,0; 0 is move to dx
 ;option1
 Mov al,[var1]; 3c(hex of 60) move to lower part of ax  
 Mov bl,[var2];EF  move to lower part of bx 
-Add al,bl ; lower part of bx added to lower part of ax and 2B store in lower part of ax 
+Add al,bl ; lower part of bx added to lower part of ax and 2B store in lower part of ax
 
 ;option2
 Mov al,[var1] ;3c(hex of 60) move to  ax 

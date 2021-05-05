@@ -1,21 +1,18 @@
 [org 0x100]
-mov ax,0
-mov bx,0
-mov cx,0
-mov dx,0
-mov bx, var1
-mov ax,[bx]
-mov cx,[bx+2]
-add ax,cx; after addition result is 160
-;  SF is active because MSB is one
-;OF is because overflow is occur
-mov [bx],ax
-mov [bx+2], word 0
-mov dx,[bx+3]
-add dx,[bx+3]
-mov [bx+3],dx
-mov ax,0x4c00
+mov ax,0; 0 is move to ax
+mov bx,0; 0 is move to bx
+mov cx,0; 0 is move to cx
+mov dx,0; 0 is move to dx
+mov bx, var1; var1 is move to bx
+mov al,[bx] ; 0A(hex of 10) is move to lower part of ax
+mov cl,[bx+1];(accessing var2 using address of var1) 55 move to lower part of cx
+mov ch,[bx+2];(accessing var3 using address of var1) 0 D (hex of 13) move to higher part of cx
+sub ch,cl    ; lower part of cx is subtract from higher part of cx and B8(result) store in higher part of cx
+mov ax,0x4c00; program terminate
 int 21h
-var1: dw 60
-var2: db 5
-var3: dw 100
+
+var1: db 10
+var2: db 55h
+var3: db 13 
+
+;note in line 10 ch-cl=FFB8, FF wasted because of overflow 
